@@ -7,10 +7,10 @@ const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 const pool = mysql.createPool({
   connectionLimit: 5,
-  host: "localhost",
-  user: "root",
-  database: "test",
-  password: "",
+  host: "us-cdbr-iron-east-05.cleardb.net",
+  user: "b29064450352db",
+  database: "heroku_93409708d599b92",
+  password: "d2f8acf6",
   multipleStatements: true
 });
 const app = express();
