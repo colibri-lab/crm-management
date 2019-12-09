@@ -15,6 +15,7 @@ app.use("/services", ServicesRoutes);
 app.use("/services", TypesRoutes);
 console.log(app);
 
-app.listen(3008, function() {
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, function() {
   console.log("Сервер ожидает подключения...");
 });
