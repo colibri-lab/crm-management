@@ -13,9 +13,9 @@ app.use(cors());
 app.use("/users", UsersRoutes);
 app.use("/services", ServicesRoutes);
 app.use("/services", TypesRoutes);
-console.log(app);
+// console.log(app);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, function() {
-  console.log("Сервер ожидает подключения...");
+  console.log("Сервер ожидает подключения... PORT: " + PORT);
 });

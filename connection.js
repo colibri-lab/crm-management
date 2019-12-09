@@ -13,6 +13,15 @@ const pool = mysql.createPool({
   password: "d2f8acf6",
   multipleStatements: true
 });
+
+/*const pool = mysql.createPool({
+  connectionLimit: 5,
+  host: "localhost",
+  user: "root",
+  database: "crm",
+  password: "123456",
+  multipleStatements: true
+});*/
 const app = express();
 app.use(cors());
 
