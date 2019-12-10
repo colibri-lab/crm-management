@@ -5,6 +5,8 @@ const cors = require("cors");
 
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
+// mysql --host=us-cdbr-iron-east-05.cleardb.net --user=b29064450352db --password=d2f8acf6 --reconnect heroku_93409708d599b92
+
 const pool = mysql.createPool({
   connectionLimit: 5,
   host: "us-cdbr-iron-east-05.cleardb.net",

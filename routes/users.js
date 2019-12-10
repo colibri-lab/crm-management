@@ -7,17 +7,16 @@ const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 Router.get("/", (req, res) => {
   const { have_service } = req.body;
-  // let queryStr = "select u.*, s.* from users as u left join users_to_services as us on u.id = us.user_id left join services as s on s.id = us.service_id";
-  let queryStr = "select * from users";
+  let queryStr = "select u.*, s.* from users as u left join users_to_services as us on u.id = us.user_id left join services as s on s.id = us.service_id";
 
-  /*if (have_service) {
+  if (have_service) {
     queryStr =
       "select u.*, s.* from users as u join users_to_services as us on u.id = us.user_id join services as s on s.id = us.service_id";
   } else {
     queryStr =
       "select u.*, s.* from users as u left join users_to_services as us on u.id = us.user_id left join services as s on s.id = us.service_id";
-  }*/
-  console.log("queryStr", queryStr);
+  }
+  
   pool.query(queryStr, (err, rows) => {
     if (!err) {
       res.send(rows);
