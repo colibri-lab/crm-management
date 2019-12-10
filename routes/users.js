@@ -1,6 +1,6 @@
-const express = require("express");
-const Router = express.Router();
-const pool = require("../connection");
+const express    = require("express");
+const Router     = express.Router();
+const DB         = require("../connection");
 const bodyParser = require("body-parser");
 
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
@@ -17,7 +17,7 @@ Router.get("/", (req, res) => {
       "select u.*, s.* from users as u left join users_to_services as us on u.id = us.user_id left join services as s on s.id = us.service_id";
   }
 
-  pool.query(queryStr, (err, rows) => {
+  DB.query(queryStr, (err, rows) => {
     if (!err) {
       res.send(rows);
     } else {
@@ -26,12 +26,33 @@ Router.get("/", (req, res) => {
   });
 });
 
+Router.post('/auth', function(req, res) {
+  var username = req.body.username;
+  var password = req.body.password;
+
+  if (username && password) {
+    DB.query('SELECT * FROM users WHERE username = ? AND password = ?', [username, password], function(error, results, fields) {
+      if (results.length > 0) {
+        req.session.loggedin = true;
+        req.session.username = username;
+        res.send('Loged in');
+      } else {
+        res.send('Incorrect Username and/or Password!');
+      }
+      res.end();
+    });
+  } else {
+    res.send('Please enter Username and Password!');
+    res.end();
+  }
+});
+
 Router.post("/", urlencodedParser, (req, res) => {
   if (!req.body) return res.sendStatus(400);
 
   const { firstName, lastName, email, username, password } = req.body;
   console.log("TCL: req.body", req.query);
-  pool.query(
+  DB.query(
     "INSERT INTO users (firstName, lastName, email, username, password) VALUES (?,?,?,?,?)",
     [firstName, lastName, email, username, password],
     (err, rows, fields) => {
@@ -48,7 +69,7 @@ Router.put("/:id", urlencodedParser, function(req, res) {
   if (!req.body) return res.sendStatus(400);
   const { firstName } = req.body;
   const id = req.params.id;
-  pool.query(
+  DB.query(
     "UPDATE users SET firstName=? WHERE id=?",
     [firstName, id],
     function(err, result) {
@@ -60,9 +81,9 @@ Router.put("/:id", urlencodedParser, function(req, res) {
 
 Router.delete("/:id", function(req, res) {
   const id = req.params.id;
-  pool.query("DELETE FROM users WHERE id=?", [id], function(err, result) {
+  DB.query("DELETE FROM users WHERE id=?", [id], function(err, result) {
     if (res)
-      pool.query(
+      DB.query(
         "DELETE FROM users_to_services WHERE user_id=?",
         [id],
         function(err, result) {
