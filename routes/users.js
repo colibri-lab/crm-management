@@ -16,7 +16,7 @@ Router.get("/", (req, res) => {
     queryStr =
       "select u.*, s.* from users as u left join users_to_services as us on u.id = us.user_id left join services as s on s.id = us.service_id";
   }
-  
+
   pool.query(queryStr, (err, rows) => {
     if (!err) {
       res.send(rows);
@@ -29,11 +29,11 @@ Router.get("/", (req, res) => {
 Router.post("/", urlencodedParser, (req, res) => {
   if (!req.body) return res.sendStatus(400);
 
-  const { firstName, lastName, email } = req.body;
+  const { firstName, lastName, email, username, password } = req.body;
   console.log("TCL: req.body", req.query);
   pool.query(
-    "INSERT INTO users (firstName, lastName, email) VALUES (?,?,?)",
-    [firstName, lastName, email],
+    "INSERT INTO users (firstName, lastName, email, username, password) VALUES (?,?,?,?,?)",
+    [firstName, lastName, email, username, password],
     (err, rows, fields) => {
       if (!err) {
         res.send(rows);
