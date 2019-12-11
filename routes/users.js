@@ -3,8 +3,8 @@ const Router = express.Router();
 const DB = require("../connection");
 const bodyParser = require("body-parser");
 const bcrypt = require("bcryptjs");
-const salt = bcrypt.genSaltSync(10);
-const hash = bcrypt.hashSync("B4c0//", salt);
+// const salt = bcrypt.genSaltSync(10);
+// const hash = bcrypt.hashSync("B4c0//", salt);
 
 const saltRounds = 10;
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
@@ -122,7 +122,7 @@ Router.post("/", urlencodedParser, (req, res) => {
 
   const { firstName, lastName, email, username, password } = req.body;
 
-  if (!checkUser(username, password)) {
+  if ([username, password] == false) {
     bcrypt.genSalt(saltRounds, function(err, salt) {
       bcrypt.hash(password, salt, function(err, hash) {
         // Store hash in your password DB.
