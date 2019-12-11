@@ -15,8 +15,8 @@ const connection = mysql.createPool({
   connectionLimit: 5,
   host: "localhost",
   user: "root",
-  database: "crm",
-  password: "123456",
+  database: "test",
+  password: "",
   multipleStatements: true
 });
 
