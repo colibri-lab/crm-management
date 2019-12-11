@@ -13,8 +13,7 @@ app.use(
     secret: "secret",
     saveUninitialized: true,
     proxy: true,
-    resave: true,
-    saveUninitialized: true
+    resave: true
   })
 );
 app.use(bodyParser.urlencoded({ extended: true }));
