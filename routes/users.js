@@ -119,11 +119,11 @@ Router.post("/login", function(req, res) {
 });
 
 Router.post("/", urlencodedParser, (req, res) => {
+  console.log("test");
   if (!req.body) return res.sendStatus(400);
+  if (req.body) {
+    const { firstName, lastName, email, username, password } = req.body;
 
-  const { firstName, lastName, email, username, password } = req.body;
-
-  if ([username, password] == false) {
     bcrypt.genSalt(saltRounds, function(err, salt) {
       bcrypt.hash(password, salt, function(err, hash) {
         // Store hash in your password DB.
