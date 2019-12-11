@@ -107,9 +107,9 @@ Router.post("/login", function(req, res) {
           console.log(">>>>>> ", password);
           console.log(">>>>>> ", results[0].password);
           if (result) {
-            return res.send();
+            return res.send("Logged In");
           } else {
-            return res.status(400).send();
+            return res.status(400).send("error user or password is wrong");
           }
         });
       }
