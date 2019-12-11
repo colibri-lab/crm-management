@@ -11,13 +11,13 @@ const connection = mysql.createPool({
   multipleStatements: true
 });
 
-/*const connection = mysql.createPool({
-  connectionLimit: 5,
-  host: "localhost",
-  user: "root",
-  database: "test",
-  password: "",
-  multipleStatements: true
-});*/
+// const connection = mysql.createPool({
+//   connectionLimit: 5,
+//   host: "localhost",
+//   user: "root",
+//   database: "test",
+//   password: "",
+//   multipleStatements: true
+// });
 
 module.exports = connection;

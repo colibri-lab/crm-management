@@ -99,6 +99,7 @@ Router.post("/login", function(req, res) {
     "SELECT * FROM " + TABLE + " WHERE username = ? ",
     [username],
     function(error, results, fields) {
+      console.log("TCL: results", results);
       if (results[0].password) {
         bcrypt.compare(req.body.password, results[0].password, function(
           err,
