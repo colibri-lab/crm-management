@@ -1,0 +1,2 @@
+export const SET_LOGIN_PARAMS = "auth/SET_LOGIN_PARAMS"
+export const SET_REGISTER_PARAMS = "auth/SET_REGISTER_PARAMS"
